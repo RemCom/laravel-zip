@@ -7,3 +7,4 @@ composer.lock
 .vscode
 .env
 .phpunit.result.cache
+.phplint-cache
