@@ -21,14 +21,14 @@ class Zip
      *
      * @var string
      */
-    private $skip_mode = "NONE";
+    private $skip_mode = 'NONE';
 
     /**
      * Supported skip modes
      *
-     * @var bool
+     * @var array
      */
-    private $supported_skip_modes = array("HIDDEN", "ZANYSOFT", "ALL", "NONE");
+    private $supported_skip_modes = ['HIDDEN', 'ZANYSOFT', 'ALL', 'NONE'];
 
     /**
      * Mask for the extraction folder (if it should be created)
@@ -195,7 +195,7 @@ class Zip
         $mode = strtoupper($mode);
 
         if (!in_array($mode, $this->supported_skip_modes)) {
-            throw new Exception("Unsupported skip mode");
+            throw new Exception('Unsupported skip mode');
         }
 
         $this->skip_mode = $mode;
@@ -247,10 +247,10 @@ class Zip
     final public function setPath($path)
     {
         if (!file_exists($path)) {
-            throw new Exception("Not existent path");
+            throw new Exception('Not existent path');
         }
 
-        $this->path = $path[strlen($path) - 1] == "/" ? $path : $path . "/";
+        $this->path = $path[strlen($path) - 1] == '/' ? $path : $path . '/';
 
         return $this;
     }
@@ -274,12 +274,12 @@ class Zip
      */
     final public function setMask($mask)
     {
-        $mask = filter_var($mask, FILTER_VALIDATE_INT, array(
-            "options" => array(
+        $mask = filter_var($mask, FILTER_VALIDATE_INT, [
+            'options' => [
                 "max_range" => 0777,
                 "default" => 0777
-            ), 'flags' => FILTER_FLAG_ALLOW_OCTAL
-        ));
+            ], 'flags' => FILTER_FLAG_ALLOW_OCTAL
+        ]);
 
         $this->mask = $mask;
 
@@ -516,7 +516,7 @@ class Zip
      */
     private function getArchiveFiles()
     {
-        $list = array();
+        $list = [];
 
         for ($i = 0; $i < $this->zip_archive->numFiles; $i++) {
             $file = $this->zip_archive->statIndex($i);
