@@ -11,8 +11,8 @@ use \Exception;
  * @license     MIT
  *
  */
-
-class ZipManager {
+class ZipManager
+{
 
     /**
      * Array of managed zip files
@@ -24,30 +24,30 @@ class ZipManager {
     /**
      * Add a \Coodojo\Zip\Zip object to manager
      *
-     * @param   \ZanySoft\Zip\Zip  $zip
+     * @param \ZanySoft\Zip\Zip $zip
      *
      * @return  \ZanySoft\Zip\ZipManager
      */
-    public function addZip(\ZanySoft\Zip\Zip $zip) {
-
+    public function addZip(\ZanySoft\Zip\Zip $zip)
+    {
         $this->zip_archives[] = $zip;
 
         return $this;
-
     }
 
     /**
      * Remove a \Coodojo\Zip\Zip object from manager
      *
-     * @param   \ZanySoft\Zip\Zip  $zip
+     * @param \ZanySoft\Zip\Zip $zip
      *
      * @return  \ZanySoft\Zip\ZipManager
      */
-    public function removeZip(\ZanySoft\Zip\Zip $zip) {
+    public function removeZip(\ZanySoft\Zip\Zip $zip)
+    {
 
         $archive_key = array_search($zip, $this->zip_archives, true);
 
-        if ( $archive_key === false ) throw new Exception("Archive not found");
+        if ($archive_key === false) throw new Exception("Archive not found");
 
         unset($this->zip_archives[$archive_key]);
 
@@ -60,11 +60,12 @@ class ZipManager {
      *
      * @return  array
      */
-    public function listZips() {
+    public function listZips()
+    {
 
         $list = array();
 
-        foreach ( $this->zip_archives as $key=>$archive ) $list[$key] = $archive->getZipFile();
+        foreach ($this->zip_archives as $key => $archive) $list[$key] = $archive->getZipFile();
 
         return $list;
 
@@ -73,13 +74,14 @@ class ZipManager {
     /**
      * Get a  a \Coodojo\Zip\Zip object
      *
-     * @param   int    $zipId    The zip id from self::listZips()
+     * @param int $zipId The zip id from self::listZips()
      *
      * @return  \ZanySoft\Zip\Zip
      */
-    public function getZip($zipId) {
+    public function getZip($zipId)
+    {
 
-        if ( array_key_exists($zipId, $this->zip_archives) === false ) throw new Exception("Archive not found");
+        if (array_key_exists($zipId, $this->zip_archives) === false) throw new Exception("Archive not found");
 
         return $this->zip_archives[$zipId];
 
@@ -89,15 +91,16 @@ class ZipManager {
      * Set current base path (just to add relative files to zip archive)
      * for all zip files
      *
-     * @param   string  $path
+     * @param string $path
      *
      * @return  \ZanySoft\Zip\ZipManager
      */
-    public function setPath($path) {
+    public function setPath($path)
+    {
 
         try {
 
-            foreach ( $this->zip_archives as $archive ) $archive->setPath($path);
+            foreach ($this->zip_archives as $archive) $archive->setPath($path);
 
         } catch (Exception $ze) {
 
@@ -114,11 +117,12 @@ class ZipManager {
      *
      * @return  array
      */
-    public function getPath() {
+    public function getPath()
+    {
 
         $paths = array();
 
-        foreach ( $this->zip_archives as $key=>$archive ) $paths[$key] = $archive->getPath();
+        foreach ($this->zip_archives as $key => $archive) $paths[$key] = $archive->getPath();
 
         return $paths;
 
@@ -127,15 +131,16 @@ class ZipManager {
     /**
      * Set default file mask for all Zips
      *
-     * @param   int  $mask
+     * @param int $mask
      *
      * @return  \ZanySoft\Zip\ZipManager
      */
-    public function setMask($mask) {
+    public function setMask($mask)
+    {
 
         try {
 
-            foreach ( $this->zip_archives as $archive ) $archive->setMask($mask);
+            foreach ($this->zip_archives as $archive) $archive->setMask($mask);
 
         } catch (Exception $ze) {
 
@@ -152,11 +157,12 @@ class ZipManager {
      *
      * @return  array
      */
-    public function getMask() {
+    public function getMask()
+    {
 
         $masks = array();
 
-        foreach ( $this->zip_archives as $key=>$archive ) $masks[$key] = $archive->getMask();
+        foreach ($this->zip_archives as $key => $archive) $masks[$key] = $archive->getMask();
 
         return $masks;
 
@@ -167,13 +173,14 @@ class ZipManager {
      *
      * @return  array
      */
-    public function listFiles() {
+    public function listFiles()
+    {
 
         $files = array();
 
         try {
 
-            foreach ( $this->zip_archives as $key=>$archive ) $files[$key] = $archive->listFiles();
+            foreach ($this->zip_archives as $key => $archive) $files[$key] = $archive->listFiles();
 
         } catch (Exception $ze) {
 
@@ -188,23 +195,24 @@ class ZipManager {
     /**
      * Extract Zips to common destination
      *
-     * @param   string  $destination    Destination path
-     * @param   bool    $separate       Specify if files should be placed in different directories
-     * @param   array   $files          Array of files to extract
+     * @param string $destination Destination path
+     * @param bool $separate Specify if files should be placed in different directories
+     * @param array $files Array of files to extract
      *
      * @return  bool
      */
-    public function extract($destination, $separate = true, $files = null) {
+    public function extract($destination, $separate = true, $files = null)
+    {
 
         try {
 
-            foreach ( $this->zip_archives as $archive ) {
+            foreach ($this->zip_archives as $archive) {
 
-                $local_path = substr($destination, -1) == '/' ? $destination : $destination.'/';
+                $local_path = substr($destination, -1) == '/' ? $destination : $destination . '/';
 
                 $local_file = pathinfo($archive->getZipFile());
 
-                $local_destination = $separate ? ($local_path.$local_file['filename']) : $destination;
+                $local_destination = $separate ? ($local_path . $local_file['filename']) : $destination;
 
                 $archive->extract($local_destination, $files = null);
 
@@ -223,16 +231,17 @@ class ZipManager {
     /**
      * Merge multiple Zips into one
      *
-     * @param   string  $output_zip_file    Destination zip
-     * @param   bool    $separate           Specify if files should be placed in different directories
+     * @param string $output_zip_file Destination zip
+     * @param bool $separate Specify if files should be placed in different directories
      *
      * @return  bool
      */
-    public function merge($output_zip_file, $separate = true) {
+    public function merge($output_zip_file, $separate = true)
+    {
 
         $pathinfo = pathinfo($output_zip_file);
 
-        $temporary_folder = $pathinfo['dirname']."/".self::getTemporaryFolder();
+        $temporary_folder = $pathinfo['dirname'] . "/" . self::getTemporaryFolder();
 
         try {
 
@@ -261,16 +270,17 @@ class ZipManager {
     /**
      * Add a file to zip
      *
-     * @param   mixed   $file_name_or_array     filename to add or an array of filenames
-     * @param   bool    $flatten_root_folder    in case of directory, specify if root folder should be flatten or not
+     * @param mixed $file_name_or_array filename to add or an array of filenames
+     * @param bool $flatten_root_folder in case of directory, specify if root folder should be flatten or not
      *
      * @return  \ZanySoft\Zip\ZipManager
      */
-    public function add($file_name_or_array, $flatten_root_folder = false) {
+    public function add($file_name_or_array, $flatten_root_folder = false)
+    {
 
         try {
 
-            foreach ( $this->zip_archives as $archive ) $archive->add($file_name_or_array, $flatten_root_folder);
+            foreach ($this->zip_archives as $archive) $archive->add($file_name_or_array, $flatten_root_folder);
 
         } catch (Exception $ze) {
 
@@ -285,15 +295,16 @@ class ZipManager {
     /**
      * Delete a file from Zips
      *
-     * @param   mixed   $file_name_or_array     filename to add or an array of filenames
+     * @param mixed $file_name_or_array filename to add or an array of filenames
      *
      * @return  \ZanySoft\Zip\ZipManager
      */
-    public function delete($file_name_or_array) {
+    public function delete($file_name_or_array)
+    {
 
         try {
 
-            foreach ( $this->zip_archives as $archive ) $archive->delete($file_name_or_array);
+            foreach ($this->zip_archives as $archive) $archive->delete($file_name_or_array);
 
         } catch (Exception $ze) {
 
@@ -310,63 +321,50 @@ class ZipManager {
      *
      * @return  bool
      */
-    public function close() {
-
+    public function close()
+    {
         try {
-
-            foreach ( $this->zip_archives as $archive ) $archive->close();
-
+            foreach ($this->zip_archives as $archive) $archive->close();
         } catch (Exception $ze) {
-
             throw $ze;
-
         }
 
         return true;
-
     }
 
-    private static function removeExtension($filename) {
-
+    private static function removeExtension($filename)
+    {
         $file_info = pathinfo($filename);
 
         return $file_info['filename'];
-
     }
 
-    private static function getTemporaryFolder() {
-
-        return "zip-temp-folder-".md5(uniqid(rand(), true), 0);
-
+    private static function getTemporaryFolder()
+    {
+        return "zip-temp-folder-" . md5(uniqid(rand(), true), 0);
     }
 
     /**
      * @param string $folder
      */
-    private static function recursiveUnlink($folder) {
-
-        foreach ( new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($folder, \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::CHILD_FIRST) as $path ) {
-
+    private static function recursiveUnlink($folder)
+    {
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($folder, \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::CHILD_FIRST) as $path) {
             $pathname = $path->getPathname();
 
-            if ( $path->isDir() ) {
-
+            if ($path->isDir()) {
                 $action = rmdir($pathname);
-
             } else {
-
                 $action = unlink($pathname);
-
             }
 
-            if ( $action === false ) throw new Exception("Error deleting ".$pathname." during recursive unlink of folder ".$folder);
+            if ($action === false) throw new Exception("Error deleting " . $pathname . " during recursive unlink of folder " . $folder);
 
         }
 
         $action = rmdir($folder);
 
-        if ( $action === false ) throw new Exception("Error deleting folder ".$folder);
+        if ($action === false) throw new Exception("Error deleting folder " . $folder);
 
     }
-
 }
