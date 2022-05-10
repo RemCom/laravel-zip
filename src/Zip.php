@@ -70,7 +70,7 @@ class Zip
      *
      * @var array
      */
-    private static $zip_status_codes = array(
+    private static $zip_status_codes = [
         ZipArchive::ER_OK => 'No error',
         ZipArchive::ER_MULTIDISK => 'Multi-disk zip archives not supported',
         ZipArchive::ER_RENAME => 'Renaming temporary file failed',
@@ -95,7 +95,7 @@ class Zip
         ZipArchive::ER_INCONS => 'Zip archive inconsistent',
         ZipArchive::ER_REMOVE => 'Can\'t remove file',
         ZipArchive::ER_DELETED => 'Entry has been deleted'
-    );
+    ];
 
     /**
      * Class constructor
@@ -162,11 +162,11 @@ class Zip
      */
     public static function create($zip_file, $overwrite = false)
     {
-        $overwrite = filter_var($overwrite, FILTER_VALIDATE_BOOLEAN, array(
-            "options" => array(
+        $overwrite = filter_var($overwrite, FILTER_VALIDATE_BOOLEAN, [
+            "options" => [
                 "default" => false
-            )
-        ));
+            ]
+        ]);
 
         try {
             $zip = new Zip($zip_file);
@@ -346,10 +346,9 @@ class Zip
      */
     public function listFiles()
     {
-        $list = array();
+        $list = [];
 
         for ($i = 0; $i < $this->zip_archive->numFiles; $i++) {
-
             $name = $this->zip_archive->getNameIndex($i);
 
             if ($name === false) {
@@ -357,7 +356,6 @@ class Zip
             }
 
             array_push($list, $name);
-
         }
 
         return $list;
@@ -410,7 +408,7 @@ class Zip
             throw new Exception('Destination path not writable');
         }
 
-        if (is_array($files) && @sizeof($files) != 0) {
+        if (is_array($files) && count($files) != 0) {
             $file_matrix = $files;
         } else {
             $file_matrix = $this->getArchiveFiles();
@@ -443,22 +441,20 @@ class Zip
             throw new Exception(self::getStatus(ZipArchive::ER_NOENT));
         }
 
-        $flatten_root_folder = filter_var($flatten_root_folder, FILTER_VALIDATE_BOOLEAN, array(
-            "options" => array(
+        $flatten_root_folder = filter_var($flatten_root_folder, FILTER_VALIDATE_BOOLEAN, [
+            "options" => [
                 "default" => false
-            )
-        ));
+            ]
+        ]);
 
         try {
             if (is_array($file_name_or_array)) {
                 foreach ($file_name_or_array as $file_name) {
                     $this->addItem($file_name, $flatten_root_folder);
                 }
-
             } else {
                 $this->addItem($file_name_or_array, $flatten_root_folder);
             }
-
         } catch (Exception $ze) {
             throw $ze;
         }
@@ -481,7 +477,6 @@ class Zip
 
         try {
             if (is_array($file_name_or_array)) {
-
                 foreach ($file_name_or_array as $file_name) {
                     $this->deleteItem($file_name);
                 }
@@ -527,16 +522,15 @@ class Zip
 
             $name = str_replace('\\', '/', $file['name']);
 
-            if ($name[0] == "." and in_array($this->skip_mode, array("HIDDEN", "ALL"))) {
+            if ($name[0] == "." and in_array($this->skip_mode, ["HIDDEN", "ALL"])) {
                 continue;
             }
 
-            if ($name[0] == "." and @$name[1] == "_" and in_array($this->skip_mode, array("ZANYSOFT", "ALL"))) {
+            if ($name[0] == "." and @$name[1] == "_" and in_array($this->skip_mode, ["ZANYSOFT", "ALL"])) {
                 continue;
             }
 
             array_push($list, $name);
-
         }
 
         return $list;
@@ -559,11 +553,11 @@ class Zip
         $real_name = basename($real_file);
 
         if (!is_null($base)) {
-            if ($real_name[0] == "." and in_array($this->skip_mode, array("HIDDEN", "ALL"))) {
+            if ($real_name[0] == "." and in_array($this->skip_mode, ["HIDDEN", "ALL"])) {
                 return;
             }
 
-            if ($real_name[0] == "." and @$real_name[1] == "_" and in_array($this->skip_mode, array("ZANYSOFT", "ALL"))) {
+            if ($real_name[0] == "." and @$real_name[1] == "_" and in_array($this->skip_mode, ["ZANYSOFT", "ALL"])) {
                 return;
             }
         }
