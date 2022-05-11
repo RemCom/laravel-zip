@@ -1,4 +1,6 @@
-<?php namespace ZanySoft\Zip;
+<?php
+
+namespace ZanySoft\Zip;
 
 use \ZipArchive;
 use \Exception;
@@ -21,21 +23,21 @@ class Zip
      *
      * @var string
      */
-    private $skip_mode = 'NONE';
+    private string $skip_mode = 'NONE';
 
     /**
      * Supported skip modes
      *
-     * @var array
+     * @var array<string>
      */
-    private $supported_skip_modes = ['HIDDEN', 'ZANYSOFT', 'ALL', 'NONE'];
+    private array $supported_skip_modes = ['HIDDEN', 'ZANYSOFT', 'ALL', 'NONE'];
 
     /**
      * Mask for the extraction folder (if it should be created)
      *
      * @var int
      */
-    private $mask = 0777;
+    private int $mask = 0777;
 
     /**
      * ZipArchive internal pointer
@@ -47,30 +49,30 @@ class Zip
     /**
      * zip file name
      *
-     * @var string
+     * @var string|null
      */
-    private $zip_file = null;
+    private ?string $zip_file = null;
 
     /**
      * zip file password (only for extract)
      *
-     * @var string
+     * @var string|null
      */
-    private $password = null;
+    private ?string $password = null;
 
     /**
      * Current base path
      *
-     * @var string
+     * @var string|null
      */
-    private $path = null;
+    private ?string $path = null;
 
     /**
      * Array of well known zip status codes
      *
-     * @var array
+     * @var array<string>
      */
-    private static $zip_status_codes = [
+    private static array $zip_status_codes = [
         ZipArchive::ER_OK => 'No error',
         ZipArchive::ER_MULTIDISK => 'Multi-disk zip archives not supported',
         ZipArchive::ER_RENAME => 'Renaming temporary file failed',
@@ -332,7 +334,7 @@ class Zip
 
     /**
      * Get an SplFileObject for the zip file
-     * @return SplFileObject
+     * @return \SplFileObject
      */
     public function getFileObject()
     {
@@ -541,10 +543,11 @@ class Zip
      *
      * @param string $file File to add (realpath)
      * @param bool $flatroot (optional) If true, source directory will be not included
-     * @param string $base (optional) Base to record in zip file
+     * @param string|null $base (optional) Base to record in zip file
      *
+     * @throws Exception
      */
-    private function addItem($file, $flatroot = false, $base = null)
+    private function addItem(string $file, bool $flatroot = false, string $base = null): void
     {
         $file = is_null($this->path) ? $file : $this->path . $file;
 

@@ -1,4 +1,6 @@
-<?php namespace ZanySoft\Zip;
+<?php
+
+namespace ZanySoft\Zip;
 
 use \ZanySoft\Zip\Zip;
 use \Exception;
@@ -19,7 +21,7 @@ class ZipManager
      *
      * @var array
      */
-    private $zip_archives = [];
+    private array $zip_archives = [];
 
     /**
      * Add a \Coodojo\Zip\Zip object to manager
@@ -60,7 +62,7 @@ class ZipManager
      *
      * @return  array
      */
-    public function listZips()
+    public function listZips(): array
     {
         $list = [];
 
@@ -230,8 +232,6 @@ class ZipManager
             $zip->add($temporary_folder, true)->close();
 
             self::recursiveUnlink($temporary_folder);
-        } catch (Exception $ze) {
-            throw $ze;
         } catch (Exception $e) {
             throw $e;
         }
@@ -298,16 +298,9 @@ class ZipManager
         return true;
     }
 
-    private static function removeExtension($filename)
-    {
-        $file_info = pathinfo($filename);
-
-        return $file_info['filename'];
-    }
-
     private static function getTemporaryFolder()
     {
-        return "zip-temp-folder-" . md5(uniqid(rand(), true), 0);
+        return "zip-temp-folder-" . md5(uniqid((string)rand(), true), false);
     }
 
     /**

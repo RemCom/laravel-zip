@@ -39,7 +39,8 @@
     "orchestra/testbench": "~v6.24.1",
     "overtrue/phplint": "^4",
     "squizlabs/php_codesniffer": "3.*",
-    "symplify/easy-ci": "^10"
+    "symplify/easy-ci": "^10",
+    "phpstan/phpstan": "^1.6"
   },
   "autoload": {
     "psr-4": {
