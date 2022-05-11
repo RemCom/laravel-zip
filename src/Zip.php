@@ -165,8 +165,8 @@ class Zip
     public static function create($zip_file, $overwrite = false)
     {
         $overwrite = filter_var($overwrite, FILTER_VALIDATE_BOOLEAN, [
-            "options" => [
-                "default" => false
+            'options' => [
+                'default' => false
             ]
         ]);
 
@@ -278,8 +278,8 @@ class Zip
     {
         $mask = filter_var($mask, FILTER_VALIDATE_INT, [
             'options' => [
-                "max_range" => 0777,
-                "default" => 0777
+                'max_range' => 0777,
+                'default' => 0777
             ], 'flags' => FILTER_FLAG_ALLOW_OCTAL
         ]);
 
@@ -402,7 +402,7 @@ class Zip
             umask($omask);
 
             if ($action === false) {
-                throw new Exception("Error creating folder " . $destination);
+                throw new Exception('Error creating folder ' . $destination);
             }
         }
 
@@ -444,8 +444,8 @@ class Zip
         }
 
         $flatten_root_folder = filter_var($flatten_root_folder, FILTER_VALIDATE_BOOLEAN, [
-            "options" => [
-                "default" => false
+            'options' => [
+                'default' => false
             ]
         ]);
 
@@ -524,11 +524,11 @@ class Zip
 
             $name = str_replace('\\', '/', $file['name']);
 
-            if ($name[0] == "." and in_array($this->skip_mode, ["HIDDEN", "ALL"])) {
+            if ($name[0] == '.' and in_array($this->skip_mode, ['HIDDEN', 'ALL'])) {
                 continue;
             }
 
-            if ($name[0] == "." and @$name[1] == "_" and in_array($this->skip_mode, ["ZANYSOFT", "ALL"])) {
+            if ($name[0] == '.' and @$name[1] == '_' and in_array($this->skip_mode, ['ZANYSOFT', 'ALL'])) {
                 continue;
             }
 
@@ -556,11 +556,11 @@ class Zip
         $real_name = basename($real_file);
 
         if (!is_null($base)) {
-            if ($real_name[0] == "." and in_array($this->skip_mode, ['HIDDEN', 'ALL'])) {
+            if ($real_name[0] == '.' and in_array($this->skip_mode, ['HIDDEN', 'ALL'])) {
                 return;
             }
 
-            if ($real_name[0] == "." and @$real_name[1] == "_" and in_array($this->skip_mode, ['ZANYSOFT', 'ALL'])) {
+            if ($real_name[0] == '.' and @$real_name[1] == '_' and in_array($this->skip_mode, ['ZANYSOFT', 'ALL'])) {
                 return;
             }
         }
@@ -585,7 +585,7 @@ class Zip
 
                 $file_real = $path->getPathname();
 
-                $base = is_null($folder_target) ? null : ($folder_target . "/");
+                $base = is_null($folder_target) ? null : ($folder_target . '/');
 
                 try {
                     $this->addItem($file_real, false, $base);

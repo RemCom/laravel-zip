@@ -49,7 +49,7 @@ class ZipManager
         $archive_key = array_search($zip, $this->zip_archives, true);
 
         if ($archive_key === false) {
-            throw new Exception("Archive not found");
+            throw new Exception('Archive not found');
         }
 
         unset($this->zip_archives[$archive_key]);
@@ -222,7 +222,7 @@ class ZipManager
     {
         $pathinfo = pathinfo($output_zip_file);
 
-        $temporary_folder = $pathinfo['dirname'] . "/" . self::getTemporaryFolder();
+        $temporary_folder = $pathinfo['dirname'] . '/' . self::getTemporaryFolder();
 
         try {
             $this->extract($temporary_folder, $separate, null);
@@ -300,7 +300,7 @@ class ZipManager
 
     private static function getTemporaryFolder()
     {
-        return "zip-temp-folder-" . md5(uniqid((string)rand(), true), false);
+        return 'zip-temp-folder-' . md5(uniqid((string)rand(), true), false);
     }
 
     /**
@@ -318,14 +318,14 @@ class ZipManager
             }
 
             if ($action === false) {
-                throw new Exception("Error deleting " . $pathname . " during recursive unlink of folder " . $folder);
+                throw new Exception('Error deleting ' . $pathname . ' during recursive unlink of folder ' . $folder);
             }
         }
 
         $action = rmdir($folder);
 
         if ($action === false) {
-            throw new Exception("Error deleting folder " . $folder);
+            throw new Exception('Error deleting folder ' . $folder);
         }
     }
 }
