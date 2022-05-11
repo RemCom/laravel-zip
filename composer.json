@@ -8,12 +8,18 @@
       "name": "Zany Soft",
       "email": "info@zanysoft.net",
       "homepage": "http://www.zanysoft.net"
+    },
+    {
+      "name": "ProductFlow",
+      "email": "remco@productflow.com",
+      "homepage": "https://www.productflow.com"
     }
   ],
   "keywords": [
     "laravel-zip",
     "laravel",
-    "laravel5",
+    "laravel8",
+    "laravel9",
     "zip",
     "unzip",
     "extract",

@@ -1,14 +1,16 @@
 # zanysoft/laravel-zip
 
-[![Downloads](https://img.shields.io/packagist/dt/zanysoft/laravel-zip.svg?style=flat-square)](https://packagist.org/packages/zanysoft/laravel-zip)
-[![GitHub license](https://img.shields.io/badge/License-MIT-informational.svg)](https://github.com/zanysoft/laravel-zip/blob/master/LICENSE)
+[![Downloads](https://img.shields.io/packagist/dt/zanysoft/laravel-zip.svg?style=flat-square)](https://packagist.org/packages/productflowbv/laravel-zip)
+[![GitHub license](https://img.shields.io/badge/License-MIT-informational.svg)](https://github.com/productflowbv/laravel-zip/blob/master/LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-informational.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
-[![GitHub tag](https://img.shields.io/github/tag/ZanySoft/laravel-zip.svg?style=flat&logo=laravel&color=informational)](https://github.com/zanysoft/laravel-zip/tags)
+[![GitHub tag](https://img.shields.io/github/tag/ZanySoft/laravel-zip.svg?style=flat&logo=laravel&color=informational)](https://github.com/productflowbv/laravel-zip/tags)
 
 
 > laravel-zip is the world's leading zip utility for file compression and backup.
 
 This library was written to simplify and automate Zip files management using [PHP ZipArchive](http://php.net/manual/en/class.ziparchive.php).
+
+This project is developed by Zanysoft and is active maintained by [ProductFlow](https://www.productflow.com)
 
 ### Installation
 Require this package in your composer.json and update composer. This will download the package.
