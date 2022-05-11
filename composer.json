@@ -8,12 +8,18 @@
       "name": "Zany Soft",
       "email": "info@zanysoft.net",
       "homepage": "http://www.zanysoft.net"
+    },
+    {
+      "name": "ProductFlow",
+      "email": "remco@productflow.com",
+      "homepage": "https://www.productflow.com"
     }
   ],
   "keywords": [
     "laravel-zip",
     "laravel",
-    "laravel5",
+    "laravel8",
+    "laravel9",
     "zip",
     "unzip",
     "extract",
@@ -23,12 +29,27 @@
     "merge"
   ],
   "require": {
-    "php": ">=7.1",
-    "illuminate/support": "^6.0|^7.0|^8.0"
+    "php": ">=8.0",
+    "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
+    "ext-zip": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5.0",
+    "scrutinizer/ocular": "^1.8.1",
+    "orchestra/testbench": "~v6.24.1",
+    "overtrue/phplint": "^4",
+    "squizlabs/php_codesniffer": "3.*",
+    "symplify/easy-ci": "^10",
+    "phpstan/phpstan": "^1.6"
   },
   "autoload": {
     "psr-4": {
       "ZanySoft\\Zip\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ZanySoft\\Zip\\": "tests"
     }
   },
   "extra": {
