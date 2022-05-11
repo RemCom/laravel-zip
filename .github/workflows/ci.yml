@@ -60,6 +60,6 @@ jobs:
       - name: Run phpcs - PSR2 check
         run: ./vendor/bin/phpcs --standard=ci/phpbcs.xml src
       - name: Run static code analysis
-        run: ./vendor/bin/phpstan analyse -l 6 src
+        run: ./vendor/bin/phpstan analyse -l 5 src
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit
