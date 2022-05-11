@@ -6,8 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 class ZipServiceProvider extends ServiceProvider
 {
-
-
     /**
      * Register the service provider.
      *
@@ -16,10 +14,6 @@ class ZipServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerCpanelService();
-
-        /*if ($this->app->runningInConsole()) {
-            $this->registerResources();
-        }*/
     }
 
     /**

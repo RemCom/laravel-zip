@@ -556,11 +556,11 @@ class Zip
         $real_name = basename($real_file);
 
         if (!is_null($base)) {
-            if ($real_name[0] == "." and in_array($this->skip_mode, ["HIDDEN", "ALL"])) {
+            if ($real_name[0] == "." and in_array($this->skip_mode, ['HIDDEN', 'ALL'])) {
                 return;
             }
 
-            if ($real_name[0] == "." and @$real_name[1] == "_" and in_array($this->skip_mode, ["ZANYSOFT", "ALL"])) {
+            if ($real_name[0] == "." and @$real_name[1] == "_" and in_array($this->skip_mode, ['ZANYSOFT', 'ALL'])) {
                 return;
             }
         }
@@ -649,7 +649,7 @@ class Zip
      *
      * @return  string
      */
-    private static function getStatus($code)
+    private static function getStatus(int $code): string
     {
         if (array_key_exists($code, self::$zip_status_codes)) {
             return self::$zip_status_codes[$code];
